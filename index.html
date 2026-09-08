@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 4 Hidden Drivers • Primary Care Diagnostic Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0C2340',
+                        deepnavy: '#061426',
+                        trust: '#005EB8',
+                        orange: '#FE5000',
+                        slate: '#333F48',
+                        ice: '#DBE2E9',
+                        cream: '#FBFBFB',
+                        paper: '#FDFBF7'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
+
+        .driver-card-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .driver-card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px -2px rgba(12, 35, 64, 0.12);
+        }
+        .driver-card-btn-active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -3px rgba(12, 35, 64, 0.22);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-transparent text-slate font-sans p-2 sm:p-4 md:p-5 flex flex-col items-center justify-start w-full">
+
+    <div class="w-full max-w-5xl mx-auto flex flex-col space-y-4 sm:space-y-5">
+
+        <!-- Top Header & Instructions -->
+        <div class="bg-navy text-white rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-ice/20">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-ice/90 font-mono">Diagnostic Dossier • Primary Care</span>
+                </div>
+                <h2 class="text-base sm:text-lg md:text-xl font-bold text-white mt-1">
+                    The Four Key Hidden Drivers
+                </h2>
+            </div>
+            <div class="text-xs text-ice/75 font-medium sm:text-right">
+                Select any driver below to inspect its clinical diagnostic file
+            </div>
+        </div>
+
+        <!-- 4 Driver Interactive Buttons (2x2 Grid matching SME Layout & Colors) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+
+            <!-- Driver 1: Fear & Anxiety (Teal) -->
+            <button onclick="selectDriver(1)" id="btn-driver-1" 
+                    class="driver-card-btn driver-card-btn-active p-4 rounded-2xl border-2 border-teal-600 bg-navy text-white text-left cursor-pointer flex flex-col justify-between">
+                <div>
+                    <span id="badge-driver-1" class="text-[10px] font-mono uppercase tracking-wider text-teal-400 font-bold">Driver 01</span>
+                    <div class="text-sm font-bold leading-tight mt-1">Fear & Anxiety</div>
+                </div>
+                <div class="text-[11px] opacity-85 mt-3 italic truncate">"Why am I being fobbed off?"</div>
+            </button>
+
+            <!-- Driver 2: Loss of Control & Autonomy (Amber) -->
+            <button onclick="selectDriver(2)" id="btn-driver-2" 
+                    class="driver-card-btn p-4 rounded-2xl border-2 border-ice bg-white text-navy hover:border-amber-500/60 text-left cursor-pointer flex flex-col justify-between">
+                <div>
+                    <span id="badge-driver-2" class="text-[10px] font-mono uppercase tracking-wider text-amber-600 font-bold">Driver 02</span>
+                    <div class="text-sm font-bold leading-tight mt-1">Loss of Control & Autonomy</div>
+                </div>
+                <div class="text-[11px] opacity-75 mt-3 italic truncate">"Another thing happening TO me"</div>
+            </button>
+
+            <!-- Driver 3: Shame & Identity (Rose/Red) -->
+            <button onclick="selectDriver(3)" id="btn-driver-3" 
+                    class="driver-card-btn p-4 rounded-2xl border-2 border-ice bg-white text-navy hover:border-rose-500/60 text-left cursor-pointer flex flex-col justify-between">
+                <div>
+                    <span id="badge-driver-3" class="text-[10px] font-mono uppercase tracking-wider text-rose-600 font-bold">Driver 03</span>
+                    <div class="text-sm font-bold leading-tight mt-1">Shame & Identity</div>
+                </div>
+                <div class="text-[11px] opacity-75 mt-3 italic truncate">"You've noticed I've failed"</div>
+            </button>
+
+            <!-- Driver 4: Past Experience & Learned Behaviour (Navy) -->
+            <button onclick="selectDriver(4)" id="btn-driver-4" 
+                    class="driver-card-btn p-4 rounded-2xl border-2 border-ice bg-white text-navy hover:border-navy/60 text-left cursor-pointer flex flex-col justify-between">
+                <div>
+                    <span id="badge-driver-4" class="text-[10px] font-mono uppercase tracking-wider text-navy font-bold">Driver 04</span>
+                    <div class="text-sm font-bold leading-tight mt-1">Past Experience & Behaviour</div>
+                </div>
+                <div class="text-[11px] opacity-75 mt-3 italic truncate">"Pushing harder gets results"</div>
+            </button>
+
+        </div>
+
+        <!-- The Diagnostic Detail Dossier Container -->
+        <div id="driverDetailsContainer" class="bg-white border border-ice rounded-2xl shadow-md overflow-hidden flex flex-col fade-in">
+            
+            <!-- Dossier Header Strip -->
+            <div class="bg-navy text-white px-5 py-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ice/20">
+                <div class="flex items-center space-x-2.5">
+                    <span id="driverNumberBadge" class="bg-teal-600 text-white text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full">
+                        Driver 01
+                    </span>
+                    <h3 id="driverTitle" class="text-sm sm:text-base font-bold text-white">
+                        Fear & Anxiety
+                    </h3>
+                </div>
+                <div id="driverMechanismTag" class="text-xs font-mono text-teal-300">
+                    SME Core: Role Dismissal as Fear of Abandonment
+                </div>
+            </div>
+
+            <!-- Dossier Body: Split Comparative Grid -->
+            <div class="p-5 sm:p-7 space-y-5 sm:space-y-6">
+
+                <!-- SME Exact Definition Banner -->
+                <div id="smeBanner" class="bg-slate-50 border-l-4 border-teal-600 p-4 rounded-r-xl border border-ice/70 text-xs sm:text-sm">
+                    <div class="text-[10px] font-mono uppercase font-bold text-slate/50 mb-1">SME Principle:</div>
+                    <p id="smeDefinitionText" class="text-navy font-medium leading-relaxed">
+                        "My GP always sees me. Why am I being fobbed off?" Fear expresses itself as hostility, demands, or dismissal of your role — not personal attack.
+                    </p>
+                </div>
+
+                <!-- Row 1: Surface Symptoms vs Underneath Reality -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Above the Waterline Card -->
+                    <div class="bg-sky-50/60 border border-sky-200/80 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-wider text-navy mb-2">
+                                <span class="w-2 h-2 rounded-full bg-trust"></span>
+                                <span>10% Above The Waterline (Observable Presentation)</span>
+                            </div>
+                            <p id="surfaceDescription" class="text-xs sm:text-sm text-slate/85 leading-relaxed">
+                                Role dismissal, demanding to speak only to their GP, questioning qualifications, cold hostility towards coordinators or link workers.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-2.5 border-t border-sky-200/60">
+                            <div class="text-[10px] font-bold uppercase tracking-wider text-slate/50 mb-1">Spoken Patient Example:</div>
+                            <p id="exampleQuote" class="text-xs sm:text-sm font-semibold text-navy italic">
+                                "Hang on a minute. A care coordinator? What is that? I've seen Dr. Evans for fifteen years. Now I'm passed off to someone who isn't even a doctor? I want my GP."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Below the Waterline Card -->
+                    <div class="bg-[#0C2340]/5 border border-navy/15 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-wider text-orange mb-2">
+                                <span class="w-2 h-2 rounded-full bg-orange"></span>
+                                <span>90% Beneath The Waterline (The Hidden Driver)</span>
+                            </div>
+                            <p id="submergedDescription" class="text-xs sm:text-sm text-slate/85 leading-relaxed">
+                                Acute fear and attachment anxiety. The patient relies on their regular GP as their safety anchor. Being redirected feels like being dropped from the system.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-2.5 border-t border-navy/10">
+                            <div class="text-[10px] font-bold uppercase tracking-wider text-slate/50 mb-1">The Patient's Unspoken Thought:</div>
+                            <p id="internalMonologue" class="text-xs sm:text-sm font-semibold text-navy italic">
+                                "Dr. Evans is the only one who knows my complex history. If I get fobbed off to an assistant, I will slip through the cracks."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Row 2: Biological State & Clinician Pivot -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Biological State Card -->
+                    <div class="bg-paper border border-ice rounded-xl p-4 sm:p-5">
+                        <div class="text-[11px] font-bold uppercase tracking-wider text-slate/60 mb-2 flex items-center space-x-1.5">
+                            <svg class="w-3.5 h-3.5 fill-current text-trust" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            <span>Autonomic Trigger & Threat State</span>
+                        </div>
+                        <p id="biologyExplanation" class="text-xs sm:text-sm text-slate/80 leading-relaxed">
+                            Separation panic fires the amygdala. Perceived loss of primary care support is experienced as an existential threat to safety.
+                        </p>
+                    </div>
+
+                    <!-- Clinical Pivot Statement -->
+                    <div id="pivotCardContainer" class="bg-navy text-white rounded-xl p-4 sm:p-5 border-l-4 border-teal-500 flex flex-col justify-between shadow-xs">
+                        <div>
+                            <div id="pivotCardLabel" class="text-[11px] font-bold uppercase tracking-wider text-teal-400 mb-1.5">
+                                The Clinician's 10-Second Verbal Pivot:
+                            </div>
+                            <p id="pivotScript" class="text-xs sm:text-sm font-medium text-white italic leading-relaxed">
+                                "David, you've known Dr. Evans a long time and I don't want to get in the way of that. I'm not replacing him — my whole job is making sure what he plans for you actually happens without delays."
+                            </p>
+                        </div>
+                        <div id="pivotKeyNote" class="mt-3 pt-2 text-[10px] text-teal-200 font-mono">
+                            Key: Validate the GP relationship immediately. Never debate your qualifications.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const driversData = {
+            1: {
+                num: "Driver 01",
+                title: "Fear & Anxiety",
+                accentColor: "teal",
+                badgeClass: "bg-teal-600",
+                borderClass: "border-teal-600",
+                textClass: "text-teal-400",
+                mechanism: "SME Principle: Fear Expresses as Role Dismissal",
+                smeText: "\"My GP always sees me. Why am I being fobbed off?\" Fear expresses itself as hostility, demands, or dismissal of your role — not personal attack.",
+                surface: "Attacking staff qualifications, demanding to see only a 'real doctor', refusing to speak to coordinators, sarcastic dismissal of practice roles.",
+                quote: "\"Hang on a minute. A care coordinator? What is that? I've seen Dr. Evans for fifteen years. Now I'm passed off to someone who isn't even a doctor? I want my GP.\"",
+                submerged: "Acute attachment anxiety. Complex patients rely on a specific GP as their safety anchor. Being contacted by an unfamiliar role triggers panic that they are being discarded.",
+                monologue: "\"Dr. Evans is the only one who knows my complex history. If they push me away, I will slip through the cracks and be forgotten.\"",
+                biology: "Separation anxiety activates amygdala threat circuits. The perceived loss of a primary healthcare lifeline translates instantly into aggressive boundary defense.",
+                pivot: "\"David, you've known Dr. Evans a long time and I don't want to get in the way of that. I'm not replacing him — my whole job is making sure what he plans for you actually happens without delays.\"",
+                key: "Key: Validate the GP relationship immediately. Never debate your qualifications."
+            },
+            2: {
+                num: "Driver 02",
+                title: "Loss of Control & Autonomy",
+                accentColor: "amber",
+                badgeClass: "bg-amber-600",
+                borderClass: "border-amber-500",
+                textClass: "text-amber-400",
+                mechanism: "SME Principle: Illness Stripping Control Away",
+                smeText: "Patients with LTCs feel their body has taken control away. Redirection to a care coordinator can feel like yet another thing happening TO them.",
+                surface: "Stubborn refusal to cooperate, nitpicking administrative details, passive-aggressive hangups, digging in heels on minor procedural steps.",
+                quote: "\"I don't need another person telling me how to manage my life. Every week there's a new person from the surgery wanting something else from me.\"",
+                submerged: "Chronic illness and institutional procedures have systematically eroded their autonomy. Controlling this phone call is the only domain where they can assert self-determination.",
+                monologue: "\"My health is failing and everyone is telling me what to do. Controlling this conversation is the only dignity I have left.\"",
+                biology: "Loss of agency triggers psychological reactance. When choice is constrained, the brain experiences compliance as submission, sparking defiance.",
+                pivot: "\"I completely understand. You manage so much of this on your own already, and the last thing you need is another person taking over. Can I take 30 seconds just to outline what's available, and you decide if any of it is useful?\"",
+                key: "Key: Offer micro-choices immediately to restore their sense of control."
+            },
+            3: {
+                num: "Driver 03",
+                title: "Shame & Identity",
+                accentColor: "rose",
+                badgeClass: "bg-rose-600",
+                borderClass: "border-rose-500",
+                textClass: "text-rose-400",
+                mechanism: "SME Principle: Outreach Received as 'You Notice I Failed'",
+                smeText: "Being contacted about weight is not a neutral clinical moment. It often lands as \"You've noticed I've failed.\" Shame presents as anger, dismissal, or avoidance — not as shame.",
+                surface: "Prickly pride, immediate defensiveness, hostile refusal of services, sarcastic accusations that the surgery is 'spying' or auditing them.",
+                quote: "\"Look... my weight is my business. I don't know why you're calling me out of the blue, just take my name off whatever list you have.\"",
+                submerged: "Profound identity threat. Patient feels exposed, judged as undisciplined, or treated like an incompetent child. Anger is deployed to shield acute vulnerability.",
+                monologue: "\"They think I'm lazy and undisciplined. I'll attack them before they can humiliate me.\"",
+                biology: "Acute social-evaluative threat spikes cortisol and adrenaline. The brain experiences lifestyle screening as a social status attack, triggering defensive fight reflexes.",
+                pivot: "\"Brenda, I hear you loud and clear. Your health is completely your business, and nobody is forcing anything. Can I just take 30 seconds to explain why this popped up?\"",
+                key: "Key: Disarm shame by acknowledging adult autonomy immediately."
+            },
+            4: {
+                num: "Driver 04",
+                title: "Past Experience & Learned Behaviour",
+                accentColor: "navy",
+                badgeClass: "bg-navy",
+                borderClass: "border-navy",
+                textClass: "text-cyan-300",
+                mechanism: "SME Principle: Conditioned Aggression from Past System Friction",
+                smeText: "Some patients have learned that pushing harder gets results. Others carry deep healthcare mistrust. Their behaviour with you is a response to someone else, somewhere else, in the past.",
+                surface: "Explosive anger at small delays, immediate cynical statements ('You lot never help', 'Useless surgery'), pre-emptive accusations before hearing you out.",
+                quote: "\"You lot are useless! I've been waiting three months for this letter, and now you're calling me about some questionnaire? Don't bother!\"",
+                submerged: "Past healthcare trauma, neglect, or exhaustion. Experience has conditioned the patient that quiet patience leads to being forgotten in administrative queues.",
+                monologue: "\"Every time I'm polite, nothing happens. The only way anyone in this surgery pays attention is if I shout and make a fuss.\"",
+                biology: "Chronic fight-or-flight conditioning. Long-term systemic frustration has lowered their threshold for perceived threat to near zero.",
+                pivot: "\"I hear how completely fed up you are with the delays, and you're right — navigating this system has been exhausting. Let's leave the questionnaire aside and look at that referral letter first.\"",
+                key: "Key: Respond to the underlying exhaustion, not the combat bait. Address their bottleneck first."
+            }
+        };
+
+        let activeDriverId = 1;
+
+        function selectDriver(id) {
+            activeDriverId = id;
+            const data = driversData[id];
+
+            // Update button styles
+            [1, 2, 3, 4].forEach(i => {
+                const btn = document.getElementById(`btn-driver-${i}`);
+                const badge = document.getElementById(`badge-driver-${i}`);
+                if (i === id) {
+                    btn.className = `driver-card-btn driver-card-btn-active p-4 rounded-2xl border-2 ${data.borderClass} bg-navy text-white text-left cursor-pointer flex flex-col justify-between`;
+                    if (badge) badge.className = `text-[10px] font-mono uppercase tracking-wider ${data.textClass} font-bold`;
+                } else {
+                    btn.className = "driver-card-btn p-4 rounded-2xl border-2 border-ice bg-white text-navy hover:border-trust/60 text-left cursor-pointer flex flex-col justify-between";
+                    if (badge) {
+                        if (i === 1) badge.className = "text-[10px] font-mono uppercase tracking-wider text-teal-600 font-bold";
+                        else if (i === 2) badge.className = "text-[10px] font-mono uppercase tracking-wider text-amber-600 font-bold";
+                        else if (i === 3) badge.className = "text-[10px] font-mono uppercase tracking-wider text-rose-600 font-bold";
+                        else if (i === 4) badge.className = "text-[10px] font-mono uppercase tracking-wider text-navy font-bold";
+                    }
+                }
+            });
+
+            // Re-trigger animation
+            const container = document.getElementById('driverDetailsContainer');
+            container.classList.remove('fade-in');
+            void container.offsetWidth;
+            container.classList.add('fade-in');
+
+            // Populate content
+            const numBadge = document.getElementById('driverNumberBadge');
+            numBadge.innerText = data.num;
+            numBadge.className = `${data.badgeClass} text-white text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full`;
+
+            document.getElementById('driverTitle').innerText = data.title;
+            document.getElementById('driverMechanismTag').innerText = data.mechanism;
+            document.getElementById('smeDefinitionText').innerText = data.smeText;
+
+            const smeBanner = document.getElementById('smeBanner');
+            smeBanner.className = `bg-slate-50 border-l-4 ${data.borderClass} p-4 rounded-r-xl border border-ice/70 text-xs sm:text-sm`;
+
+            document.getElementById('surfaceDescription').innerText = data.surface;
+            document.getElementById('exampleQuote').innerText = data.quote;
+            document.getElementById('submergedDescription').innerText = data.submerged;
+            document.getElementById('internalMonologue').innerText = data.monologue;
+            document.getElementById('biologyExplanation').innerText = data.biology;
+            document.getElementById('pivotScript').innerText = data.pivot;
+
+            const pivotCard = document.getElementById('pivotCardContainer');
+            pivotCard.className = `bg-navy text-white rounded-xl p-4 sm:p-5 border-l-4 ${data.borderClass} flex flex-col justify-between shadow-xs`;
+            document.getElementById('pivotCardLabel').className = `text-[11px] font-bold uppercase tracking-wider ${data.textClass} mb-1.5`;
+            document.getElementById('pivotKeyNote').innerText = data.key;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            selectDriver(1);
+        });
+    </script>
+</body>
+</html>
