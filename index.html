@@ -31,6 +31,9 @@
         }
     </script>
     <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
         html, body {
             margin: 0;
             padding: 0;
@@ -42,70 +45,66 @@
         * { scrollbar-width: none; }
 
         .driver-card {
-            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .driver-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px -4px rgba(12, 35, 64, 0.12);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px -2px rgba(12, 35, 64, 0.10);
         }
         .driver-card-active {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px -4px rgba(12, 35, 64, 0.18);
+            box-shadow: 0 4px 16px -2px rgba(12, 35, 64, 0.14);
         }
 
         .fade-in {
-            animation: fadeIn 0.25s ease-out forwards;
+            animation: fadeIn 0.2s ease-out forwards;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
+            from { opacity: 0; transform: translateY(3px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="bg-transparent text-slate font-sans p-3 sm:p-5 flex flex-col items-center justify-start w-full">
+<body class="bg-transparent text-slate font-sans p-2 sm:p-3 flex flex-col items-center justify-start w-full">
 
-    <div class="w-full max-w-4xl mx-auto flex flex-col space-y-4 sm:space-y-5">
+    <div class="w-full max-w-4xl mx-auto flex flex-col space-y-2.5 sm:space-y-3">
 
-        <!-- Top Clean Header (Directly reflecting Dr. Lindsay's slide) -->
-        <div class="bg-navy rounded-2xl overflow-hidden shadow-sm border border-ice/30">
-            <div class="px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+        <!-- Top Header (Compact & Aligned with Dr. Lindsay's slide) -->
+        <div class="bg-navy rounded-xl overflow-hidden shadow-xs border border-ice/30">
+            <div class="px-4 py-2.5 sm:px-5 sm:py-3 flex items-center justify-between gap-2">
                 <div>
-                    <h1 class="text-lg sm:text-xl font-bold text-white tracking-tight">
+                    <h1 class="text-base sm:text-lg font-bold text-white tracking-tight leading-tight">
                         The Four Key Hidden Drivers
                     </h1>
-                    <p class="text-xs sm:text-sm text-ice/75 mt-0.5">
-                        Select any driver to see the patient's unspoken reality and your verbal pivot
+                    <p class="text-[11px] sm:text-xs text-ice/80 mt-0.5 leading-snug">
+                        Select any driver to inspect the patient's unspoken thought and your 10-second pivot
                     </p>
                 </div>
-                <div class="text-[11px] font-mono text-ice/60 sm:text-right hidden sm:block">
+                <div class="text-[10px] font-mono text-ice/60 shrink-0 hidden sm:block">
                     Phase 3 · Diagnostic Taxonomy
                 </div>
             </div>
-            <!-- Thin Action Orange dividing line matching Dr. Lindsay's slide -->
-            <div class="h-1 bg-orange w-full"></div>
+            <div class="h-0.5 bg-orange w-full"></div>
         </div>
 
-        <!-- 4 Clean Cards (2x2 Grid matching the SME slide layout verbatim) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+        <!-- 4 SME Cards (2x2 Grid with balanced heights and compact spacing) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 items-stretch">
 
             <!-- Card 01: Fear & Anxiety -->
             <button onclick="selectDriver(1)" id="card-1"
-                    class="driver-card driver-card-active bg-white rounded-xl border border-tealDriver/40 text-left overflow-hidden flex cursor-pointer group">
-                <!-- Left Colored Stripe with Number -->
-                <div id="stripe-1" class="w-16 sm:w-20 bg-tealDriver text-white flex flex-col items-center justify-center shrink-0 p-2">
-                    <span class="text-2xl sm:text-3xl font-bold tracking-tight">01</span>
-                    <span class="text-[9px] uppercase tracking-wider font-semibold opacity-90 mt-0.5">Driver</span>
+                    class="driver-card driver-card-active bg-white rounded-xl border-2 border-tealDriver text-left overflow-hidden flex cursor-pointer group">
+                <div id="stripe-1" class="w-14 sm:w-16 bg-tealDriver text-white flex flex-col items-center justify-center shrink-0 p-1.5">
+                    <span class="text-xl sm:text-2xl font-bold tracking-tight">01</span>
+                    <span class="text-[8px] uppercase tracking-wider font-semibold opacity-90">Driver</span>
                 </div>
-                <!-- Card Content -->
-                <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                <div class="p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between">
-                            <h2 class="text-sm sm:text-base font-bold text-tealDriver group-hover:underline">
+                            <h2 class="text-xs sm:text-sm font-bold text-tealDriver group-hover:underline">
                                 Fear & Anxiety
                             </h2>
                             <span id="activeDot-1" class="w-2 h-2 rounded-full bg-tealDriver"></span>
                         </div>
-                        <p class="text-xs sm:text-[13px] text-slate/85 mt-2 leading-relaxed">
+                        <p class="text-[11px] sm:text-xs text-slate/85 mt-1 leading-snug sm:leading-relaxed">
                             <span class="italic font-medium text-navy">"My GP always sees me. Why am I being fobbed off?"</span>
                             Fear expresses itself as hostility, demands, or dismissal of your role — not personal attack.
                         </p>
@@ -116,24 +115,22 @@
             <!-- Card 03: Shame & Identity -->
             <button onclick="selectDriver(3)" id="card-3"
                     class="driver-card bg-white rounded-xl border border-ice text-left overflow-hidden flex cursor-pointer group opacity-90 hover:opacity-100">
-                <!-- Left Colored Stripe with Number -->
-                <div id="stripe-3" class="w-16 sm:w-20 bg-roseDriver text-white flex flex-col items-center justify-center shrink-0 p-2">
-                    <span class="text-2xl sm:text-3xl font-bold tracking-tight">03</span>
-                    <span class="text-[9px] uppercase tracking-wider font-semibold opacity-90 mt-0.5">Driver</span>
+                <div id="stripe-3" class="w-14 sm:w-16 bg-roseDriver text-white flex flex-col items-center justify-center shrink-0 p-1.5">
+                    <span class="text-xl sm:text-2xl font-bold tracking-tight">03</span>
+                    <span class="text-[8px] uppercase tracking-wider font-semibold opacity-90">Driver</span>
                 </div>
-                <!-- Card Content -->
-                <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                <div class="p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between">
-                            <h2 class="text-sm sm:text-base font-bold text-roseDriver group-hover:underline">
+                            <h2 class="text-xs sm:text-sm font-bold text-roseDriver group-hover:underline">
                                 Shame & Identity
                             </h2>
                             <span id="activeDot-3" class="w-2 h-2 rounded-full bg-transparent"></span>
                         </div>
-                        <p class="text-xs sm:text-[13px] text-slate/85 mt-2 leading-relaxed">
-                            Being contacted about weight is not a neutral clinical moment. It often lands as
+                        <p class="text-[11px] sm:text-xs text-slate/85 mt-1 leading-snug sm:leading-relaxed">
+                            Being contacted about weight is not neutral. It often lands as
                             <span class="italic font-medium text-navy">"You've noticed I've failed."</span>
-                            Shame presents as anger, dismissal, or avoidance — not as shame.
+                            Shame presents as anger, dismissal, or avoidance.
                         </p>
                     </div>
                 </div>
@@ -142,21 +139,19 @@
             <!-- Card 02: Loss of Control & Autonomy -->
             <button onclick="selectDriver(2)" id="card-2"
                     class="driver-card bg-white rounded-xl border border-ice text-left overflow-hidden flex cursor-pointer group opacity-90 hover:opacity-100">
-                <!-- Left Colored Stripe with Number -->
-                <div id="stripe-2" class="w-16 sm:w-20 bg-amberDriver text-white flex flex-col items-center justify-center shrink-0 p-2">
-                    <span class="text-2xl sm:text-3xl font-bold tracking-tight">02</span>
-                    <span class="text-[9px] uppercase tracking-wider font-semibold opacity-90 mt-0.5">Driver</span>
+                <div id="stripe-2" class="w-14 sm:w-16 bg-amberDriver text-white flex flex-col items-center justify-center shrink-0 p-1.5">
+                    <span class="text-xl sm:text-2xl font-bold tracking-tight">02</span>
+                    <span class="text-[8px] uppercase tracking-wider font-semibold opacity-90">Driver</span>
                 </div>
-                <!-- Card Content -->
-                <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                <div class="p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between">
-                            <h2 class="text-sm sm:text-base font-bold text-amberDriver group-hover:underline">
+                            <h2 class="text-xs sm:text-sm font-bold text-amberDriver group-hover:underline">
                                 Loss of Control & Autonomy
                             </h2>
                             <span id="activeDot-2" class="w-2 h-2 rounded-full bg-transparent"></span>
                         </div>
-                        <p class="text-xs sm:text-[13px] text-slate/85 mt-2 leading-relaxed">
+                        <p class="text-[11px] sm:text-xs text-slate/85 mt-1 leading-snug sm:leading-relaxed">
                             Patients with LTCs feel their body has taken control away. Redirection to a care coordinator can feel like yet
                             <span class="italic font-medium text-navy">another thing happening TO them</span>.
                         </p>
@@ -167,23 +162,21 @@
             <!-- Card 04: Past Experience & Learned Behaviour -->
             <button onclick="selectDriver(4)" id="card-4"
                     class="driver-card bg-white rounded-xl border border-ice text-left overflow-hidden flex cursor-pointer group opacity-90 hover:opacity-100">
-                <!-- Left Colored Stripe with Number -->
-                <div id="stripe-4" class="w-16 sm:w-20 bg-navyDriver text-white flex flex-col items-center justify-center shrink-0 p-2">
-                    <span class="text-2xl sm:text-3xl font-bold tracking-tight">04</span>
-                    <span class="text-[9px] uppercase tracking-wider font-semibold opacity-90 mt-0.5">Driver</span>
+                <div id="stripe-4" class="w-14 sm:w-16 bg-navyDriver text-white flex flex-col items-center justify-center shrink-0 p-1.5">
+                    <span class="text-xl sm:text-2xl font-bold tracking-tight">04</span>
+                    <span class="text-[8px] uppercase tracking-wider font-semibold opacity-90">Driver</span>
                 </div>
-                <!-- Card Content -->
-                <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                <div class="p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between">
-                            <h2 class="text-sm sm:text-base font-bold text-navy group-hover:underline">
+                            <h2 class="text-xs sm:text-sm font-bold text-navy group-hover:underline">
                                 Past Experience & Behaviour
                             </h2>
                             <span id="activeDot-4" class="w-2 h-2 rounded-full bg-transparent"></span>
                         </div>
-                        <p class="text-xs sm:text-[13px] text-slate/85 mt-2 leading-relaxed">
+                        <p class="text-[11px] sm:text-xs text-slate/85 mt-1 leading-snug sm:leading-relaxed">
                             Some patients have learned that <span class="italic font-medium text-navy">pushing harder gets results</span>.
-                            Others carry deep healthcare mistrust. Their behaviour with you is a response to someone else, somewhere else, in the past.
+                            Their behaviour with you is a response to someone else, somewhere else, in the past.
                         </p>
                     </div>
                 </div>
@@ -191,57 +184,57 @@
 
         </div>
 
-        <!-- Single Clinical Focus Panel (Replaces the 6 nested boxes with a clean 2-column response) -->
-        <div id="focusPanel" class="bg-white rounded-2xl border border-ice shadow-sm overflow-hidden fade-in">
+        <!-- Focus Panel (Tightened padding to prevent any iframe scrolling) -->
+        <div id="focusPanel" class="bg-white rounded-xl border border-ice shadow-xs overflow-hidden fade-in">
             
-            <!-- Focused Driver Status Header -->
-            <div id="panelHeader" class="px-5 py-3.5 bg-slate-50 border-b border-ice flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                    <span id="panelBadge" class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white bg-tealDriver">
+            <!-- Focused Header -->
+            <div id="panelHeader" class="px-3.5 py-2 bg-slate-50 border-b border-ice flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span id="panelBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md text-white bg-tealDriver">
                         Driver 01 Focus
                     </span>
                     <span id="panelTitle" class="text-xs sm:text-sm font-bold text-navy">
                         Fear & Anxiety • In Practice
                     </span>
                 </div>
-                <span class="text-[11px] text-slate/50 italic hidden sm:inline">
+                <span class="text-[10px] text-slate/50 italic hidden sm:inline">
                     Tap any card above to switch driver
                 </span>
             </div>
 
-            <!-- Focused 2-Column Content: What they're thinking vs. What to say -->
-            <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <!-- Focused 2-Column Content -->
+            <div class="p-3 sm:p-3.5 grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 items-stretch">
                 
-                <!-- Left: The Patient's Silent Thought (The True Engine) -->
-                <div class="bg-slate-50 rounded-xl p-4 sm:p-5 border border-ice/80 flex flex-col justify-between">
+                <!-- Left: Unspoken Thought -->
+                <div class="bg-slate-50 rounded-lg p-3 border border-ice/80 flex flex-col justify-between">
                     <div>
-                        <div class="text-[11px] font-bold uppercase tracking-wider text-slate/50 mb-1.5 flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-orange"></span>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-slate/50 mb-1 flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-orange"></span>
                             <span>The Patient's Unspoken Thought:</span>
                         </div>
-                        <p id="panelMonologue" class="text-xs sm:text-sm text-navy italic leading-relaxed font-medium">
+                        <p id="panelMonologue" class="text-xs text-navy italic leading-snug font-medium">
                             "Dr. Evans is the only one who knows my complex history. If I get fobbed off to someone who isn't even a doctor, I'll slip through the cracks."
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-ice/60 text-[11px] text-slate/60">
-                        <strong class="text-navy font-semibold">What you're observing:</strong>
+                    <div class="mt-2 pt-2 border-t border-ice/60 text-[10px] text-slate/60">
+                        <strong class="text-navy font-semibold">Observed presentation:</strong>
                         <span id="panelSurfaceText">Questioning qualifications or demanding to see GP.</span>
                     </div>
                 </div>
 
-                <!-- Right: The 10-Second Verbal Pivot (The Micro-Skill) -->
-                <div id="pivotContainer" class="bg-navy text-white rounded-xl p-4 sm:p-5 flex flex-col justify-between shadow-xs border-l-4 border-tealDriver">
+                <!-- Right: The 10-Second Verbal Pivot -->
+                <div id="pivotContainer" class="bg-navy text-white rounded-lg p-3 flex flex-col justify-between shadow-xs border-l-3 border-tealDriver">
                     <div>
-                        <div class="text-[11px] font-bold uppercase tracking-wider text-teal-300 mb-1.5 flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-teal-300"></span>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-teal-300 mb-1 flex items-center space-x-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-300"></span>
                             <span>The 10-Second Verbal Pivot:</span>
                         </div>
-                        <p id="panelPivotScript" class="text-xs sm:text-sm text-white font-medium italic leading-relaxed">
+                        <p id="panelPivotScript" class="text-xs text-white font-medium italic leading-snug">
                             "David, you've known Dr. Evans a long time and I don't want to get in the way of that. I'm not replacing him — my whole job is making sure what he plans for you actually happens without delays."
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-white/15 text-[11px] text-teal-200/90 font-mono">
-                        <span id="panelKeyNote">Key: Validate the GP bond immediately. Never debate your qualifications.</span>
+                    <div class="mt-2 pt-2 border-t border-white/15 text-[10px] text-teal-200/90 font-mono">
+                        <span id="panelKeyNote">Key: Validate the GP bond immediately. Never debate qualifications.</span>
                     </div>
                 </div>
 
@@ -263,7 +256,7 @@
                 monologue: "\"Dr. Evans is the only one who knows my complex history. If I get fobbed off to someone who isn't even a doctor, I'll slip through the cracks.\"",
                 surface: "Questioning qualifications, cold pushback, demanding only a GP.",
                 pivot: "\"David, you've known Dr. Evans a long time and I don't want to get in the way of that. I'm not replacing him — my whole job is making sure what he plans for you actually happens without delays.\"",
-                key: "Key: Validate the GP relationship immediately. Never debate your credentials."
+                key: "Key: Validate the GP relationship immediately. Never debate credentials."
             },
             2: {
                 num: "Driver 02 Focus",
@@ -287,7 +280,7 @@
                 monologue: "\"They think I'm lazy and undisciplined. I'll attack them before they can humiliate me.\"",
                 surface: "Immediate defensiveness, sharp prickliness, hostile rejection of services.",
                 pivot: "\"Brenda, I hear you loud and clear. Your health is completely your business, and nobody is forcing anything. Can I just take 30 seconds to explain why this popped up?\"",
-                key: "Key: Disarm shame by acknowledging adult autonomy immediately. Remove the audit threat."
+                key: "Key: Disarm shame by acknowledging adult autonomy immediately. Remove audit threat."
             },
             4: {
                 num: "Driver 04 Focus",
@@ -299,7 +292,7 @@
                 monologue: "\"Every time I'm polite, nothing happens. The only way anyone in this surgery pays attention is if I shout and make a fuss.\"",
                 surface: "Pre-emptive anger, cynicism ('you lot never help'), explosive reactions to small delays.",
                 pivot: "\"I hear how completely fed up you are with the delays, and you're right — navigating this system has been exhausting. Let's leave the questionnaire aside and look at that referral letter first.\"",
-                key: "Key: Respond to their underlying exhaustion, not the combat bait. Address their bottleneck first."
+                key: "Key: Respond to their underlying exhaustion, not combat bait. Fix the bottleneck first."
             }
         };
 
@@ -313,10 +306,10 @@
 
                 if (i === id) {
                     card.className = `driver-card driver-card-active bg-white rounded-xl border-2 ${data.borderClass} text-left overflow-hidden flex cursor-pointer group`;
-                    dot.className = `w-2.5 h-2.5 rounded-full ${data.activeDot}`;
+                    dot.className = `w-2 h-2 rounded-full ${data.activeDot}`;
                 } else {
                     card.className = "driver-card bg-white rounded-xl border border-ice text-left overflow-hidden flex cursor-pointer group opacity-85 hover:opacity-100";
-                    dot.className = "w-2.5 h-2.5 rounded-full bg-transparent";
+                    dot.className = "w-2 h-2 rounded-full bg-transparent";
                 }
             });
 
@@ -329,7 +322,7 @@
             // Populate content
             const badge = document.getElementById('panelBadge');
             badge.innerText = data.num;
-            badge.className = `text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white ${data.badgeClass}`;
+            badge.className = `text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md text-white ${data.badgeClass}`;
 
             document.getElementById('panelTitle').innerText = data.title;
             document.getElementById('panelMonologue').innerText = data.monologue;
@@ -338,7 +331,7 @@
             document.getElementById('panelKeyNote').innerText = data.key;
 
             const pivotBox = document.getElementById('pivotContainer');
-            pivotBox.className = `bg-navy text-white rounded-xl p-4 sm:p-5 flex flex-col justify-between shadow-xs border-l-4 ${data.borderClass}`;
+            pivotBox.className = `bg-navy text-white rounded-lg p-3 flex flex-col justify-between shadow-xs border-l-3 ${data.borderClass}`;
         }
 
         window.addEventListener('DOMContentLoaded', () => {
